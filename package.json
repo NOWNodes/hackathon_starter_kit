@@ -1,0 +1,21 @@
+{
+  "name": "nownodes-multichain-starter",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Starter kit for building Solana, Bitcoin, Ethereum, and Coreum projects on top of NOWNodes RPC.",
+  "scripts": {
+    "dev": "node apps/api/src/server.mjs",
+    "start": "node apps/api/src/server.mjs",
+    "verify:nownodes": "node scripts/verify-nownodes.mjs"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "devDependencies": {
+    "tsx": "^4.23.13"
+  },
+  "dependencies": {
+    "coreum-js": "^2.20.0"
+  }
+}

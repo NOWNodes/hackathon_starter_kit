@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NOWNodes Solana Starter</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">NOWNodes Solana Starter</p>
+          <h1>RPC dashboard and playground</h1>
+        </div>
+        <div class="status" id="global-status">Checking API</div>
+      </header>
+
+      <nav class="tabs" aria-label="Starter kit sections">
+        <button class="tab active" data-view="dashboard">Dashboard</button>
+        <button class="tab" data-view="address">Address Lookup</button>
+        <button class="tab" data-view="transaction">Transaction Lookup</button>
+        <button class="tab" data-view="rpc">RPC Playground</button>
+      </nav>
+
+      <section class="view active" id="dashboard">
+        <div class="metrics">
+          <article class="metric">
+            <span>Slot</span>
+            <strong id="slot">-</strong>
+          </article>
+          <article class="metric">
+            <span>Block height</span>
+            <strong id="block-height">-</strong>
+          </article>
+          <article class="metric">
+            <span>Latency</span>
+            <strong id="latency">-</strong>
+          </article>
+          <article class="metric">
+            <span>NOWNodes</span>
+            <strong id="nownodes-status">-</strong>
+          </article>
+        </div>
+        <button class="primary" id="refresh-dashboard">Refresh</button>
+        <pre class="output" id="dashboard-output"></pre>
+      </section>
+
+      <section class="view" id="address">
+        <form id="address-form" class="lookup">
+          <label for="address-input">Solana public key</label>
+          <div class="inline">
+            <input id="address-input" name="address" placeholder="Paste public key" />
+            <button class="primary" type="submit">Lookup</button>
+          </div>
+        </form>
+        <pre class="output" id="address-output"></pre>
+      </section>
+
+      <section class="view" id="transaction">
+        <form id="tx-form" class="lookup">
+          <label for="tx-input">Transaction signature</label>
+          <div class="inline">
+            <input id="tx-input" name="signature" placeholder="Paste signature" />
+            <button class="primary" type="submit">Lookup</button>
+          </div>
+        </form>
+        <pre class="output" id="tx-output"></pre>
+      </section>
+
+      <section class="view" id="rpc">
+        <form id="rpc-form" class="lookup">
+          <label for="rpc-method">Method</label>
+          <input id="rpc-method" name="method" value="getSlot" />
+          <label for="rpc-params">Params JSON</label>
+          <textarea id="rpc-params" name="params" rows="6">[]</textarea>
+          <button class="primary" type="submit">Run</button>
+        </form>
+        <pre class="output" id="rpc-output"></pre>
+      </section>
+    </main>
+
+    <script type="module" src="/main.js"></script>
+  </body>
+</html>
