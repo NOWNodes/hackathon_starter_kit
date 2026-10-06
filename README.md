@@ -1,12 +1,13 @@
 # NOWNodes Multi-Chain Starter Kit
 
-This repository is a hackathon-oriented starter kit for integrating NOWNodes RPC into Solana, Bitcoin, Ethereum, and Coreum projects.
+This repository is a hackathon-oriented starter kit for integrating NOWNodes RPC into Solana, Bitcoin, Cardano, Ethereum, and Coreum projects.
 
 It includes:
 
 - A small local Solana API and browser UI.
 - CLI examples for Solana read flows and signed-transaction workflows.
 - CLI examples for Bitcoin chain, block, transaction, mempool, and fee-estimation flows.
+- CLI examples for Cardano Blockfrost-compatible REST flows.
 - CLI examples for Ethereum wallet, token, NFT, explorer, and debugging flows.
 - Coreum write-flow examples with dry-run, simulation, signing, and guarded broadcast modes.
 - Documentation and recipes that explain how to reuse each example safely.
@@ -57,6 +58,7 @@ Expected successful output:
 NOWNodes API key: OK
 Solana getSlot: OK
 Bitcoin getbestblockhash: OK
+Cardano Blockfrost latest block: OK
 Result: PASS
 ```
 
@@ -71,6 +73,8 @@ SOLANA_RPC_URL=https://sol.nownodes.io/${NOWNODES_API_KEY}
 BTC_NETWORK=mainnet
 BTC_RPC_URL=https://btc.nownodes.io/
 BTC_BLOCKBOOK_URL=https://btcbook.nownodes.io
+ADA_NETWORK=mainnet
+ADA_BLOCKFROST_URL=https://ada-blockfrost.nownodes.io
 ETH_NETWORK=mainnet
 ETH_RPC_URL=https://eth.nownodes.io/
 COREUM_NETWORK=testnet
@@ -85,8 +89,9 @@ PORT=3000
 
 Notes:
 
-- `NOWNODES_API_KEY` is required for Solana, Bitcoin, and Ethereum examples.
+- `NOWNODES_API_KEY` is required for Solana, Bitcoin, Cardano, and Ethereum examples.
 - Bitcoin examples use `BTC_RPC_URL`, `BTC_BLOCKBOOK_URL`, and the same `NOWNODES_API_KEY`.
+- Cardano examples use `ADA_BLOCKFROST_URL` and the same `NOWNODES_API_KEY`.
 - `COREUM_MNEMONIC` is required only for Coreum `--sign` or `--broadcast` flows.
 - `COREUM_MNEMONIC` should be a testnet mnemonic unless you fully understand the mainnet guard flags.
 - `SOLANA_RPC_URL` supports `${NOWNODES_API_KEY}` interpolation.
@@ -170,6 +175,30 @@ Examples live in `examples/btc`.
 | Payment Monitor | `npm exec -- tsx examples/btc/payment-monitor.ts <TXID> [--confirmations=1] [--interval-ms=5000] [--max-attempts=1]` | Polls a transaction until it reaches the required confirmation count. |
 | OP_RETURN Reader | `npm exec -- tsx examples/btc/op-return-reader.ts <BLOCK_HEIGHT_OR_HASH> [--limit=1..100]` | Extracts OP_RETURN outputs from a block for inscription/message/debugging flows. |
 
+## Cardano Examples
+
+Examples live in `examples/cardano`.
+
+These examples use NOWNodes' Blockfrost-compatible Cardano REST endpoint. Most examples are read-only and can derive a recent block, transaction, address, asset, or pool automatically when an argument is omitted.
+
+| Example | Command | Why it is useful |
+| --- | --- | --- |
+| Network Info | `npm exec -- tsx examples/cardano/network-info.ts` | Reads supply and stake network totals for dashboards and health checks. |
+| Latest Block | `npm exec -- tsx examples/cardano/latest-block.ts` | Gets current block hash, height, slot, and transaction count. |
+| Block Lookup | `npm exec -- tsx examples/cardano/block-lookup.ts <BLOCK_HASH_OR_HEIGHT>` | Fetches a specific Cardano block by hash or height. |
+| Latest Epoch | `npm exec -- tsx examples/cardano/latest-epoch.ts` | Reads current epoch timing, block count, and transaction count. |
+| Epoch Parameters | `npm exec -- tsx examples/cardano/epoch-parameters.ts [EPOCH_NUMBER_OR_latest]` | Shows protocol parameters for fee and transaction-building tools. |
+| Address Info | `npm exec -- tsx examples/cardano/address-info.ts [ADDRESS]` | Reads ADA/native-asset balance, address type, stake address, and script flag. |
+| Address UTXOs | `npm exec -- tsx examples/cardano/address-utxos.ts [ADDRESS] [--count=10] [--page=1]` | Lists spendable UTXOs for wallet and payment flows. |
+| Address Transactions | `npm exec -- tsx examples/cardano/address-transactions.ts [ADDRESS] [--count=10] [--page=1]` | Paginates address transaction history. |
+| Transaction Summary | `npm exec -- tsx examples/cardano/transaction-summary.ts [TX_HASH]` | Summarizes block placement, fees, deposits, size, validity interval, and output amounts. |
+| Transaction UTXOs | `npm exec -- tsx examples/cardano/transaction-utxos.ts [TX_HASH]` | Shows full input/output UTXO breakdown for a transaction. |
+| Transaction Metadata | `npm exec -- tsx examples/cardano/transaction-metadata.ts [TX_HASH]` | Reads JSON metadata labels attached to a transaction. |
+| Asset Info | `npm exec -- tsx examples/cardano/asset-info.ts [ASSET_UNIT]` | Inspects a native asset or NFT policy/name unit. |
+| Asset Addresses | `npm exec -- tsx examples/cardano/asset-addresses.ts [ASSET_UNIT] [--count=10] [--page=1]` | Finds addresses holding a specific native asset. |
+| Pool List | `npm exec -- tsx examples/cardano/pool-list.ts [--count=10] [--page=1]` | Lists registered stake pools for staking explorers. |
+| Pool Info | `npm exec -- tsx examples/cardano/pool-info.ts [POOL_ID]` | Reads pool pledge, margin, fixed cost, owners, relays, metadata, and activity state. |
+
 ## Ethereum Examples
 
 Examples live in `examples/eth`.
@@ -226,8 +255,9 @@ Coreum modes:
 - Coreum simulation requires a valid funded or known on-chain fee payer. Placeholder addresses can return an expected "address does not exist" simulation error.
 - `coreum-js` currently pulls older WalletConnect, CosmJS, and protobufjs transitive dependencies. `npm audit --omit=dev` currently reports vulnerabilities in that dependency tree; review before production use.
 - The local Solana and Bitcoin RPC proxies are intentionally open for hackathon development. Production apps should add auth, rate limits, request validation, and method allowlists.
-- The browser UI covers Solana only. Ethereum and Coreum are currently CLI examples.
+- The browser UI covers Solana only. Bitcoin, Cardano, Ethereum, and Coreum are currently CLI/API examples.
 - Bitcoin examples are read-only and do not manage wallet keys.
+- Cardano examples are read-only and use NOWNodes' Blockfrost-compatible REST interface. Rosetta and Ogmios/WebSocket flows are not included yet.
 
 ## Project Review Notes
 
@@ -237,6 +267,9 @@ See [SECURITY_REVIEW.md](./SECURITY_REVIEW.md) for risks, user-confusion points,
 
 - NOWNodes Docs: <https://docs.nownodes.io/>
 - NOWNodes Bitcoin Docs: <https://docs.nownodes.io/btc/>
+- NOWNodes Cardano Docs: <https://docs.nownodes.io/ada/>
+- NOWNodes Cardano Blockfrost Docs: <https://nownodes.gitbook.io/ada-cardano-1/cardano-ada/blockfrost/addresses>
+- Cardano Developer Portal NOWNodes entry: <https://developers.cardano.org/tools/nownodes/>
 - Solana RPC Docs: <https://solana.com/docs/rpc>
 - Ethereum JSON-RPC: <https://ethereum.org/developers/docs/apis/json-rpc/>
 - Ethereum Execution APIs: <https://ethereum.github.io/execution-apis/>

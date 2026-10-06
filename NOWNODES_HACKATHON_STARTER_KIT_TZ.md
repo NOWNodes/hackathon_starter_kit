@@ -11,7 +11,7 @@ The project should let a participant:
 1. Add `NOWNODES_API_KEY`.
 2. Run the local app.
 3. Use working Solana examples immediately.
-4. Reuse CLI examples for Solana, Ethereum, and Coreum.
+4. Reuse CLI examples for Solana, Bitcoin, Cardano, Ethereum, and Coreum.
 5. Prove that the project is actually using NOWNodes RPC.
 
 ## Scope
@@ -21,6 +21,8 @@ The starter kit includes:
 - A local backend API.
 - A browser UI for Solana RPC exploration.
 - CLI examples for Solana.
+- CLI examples for Bitcoin.
+- CLI examples for Cardano.
 - CLI examples for Ethereum.
 - Coreum write-flow examples with safety guards.
 - Documentation and recipes.
@@ -59,13 +61,17 @@ It checks:
 
 - `NOWNODES_API_KEY` is configured.
 - Solana RPC responds through NOWNodes.
-- `getSlot` succeeds.
+- Solana `getSlot` succeeds.
+- Bitcoin `getbestblockhash` succeeds.
+- Cardano Blockfrost latest-block lookup succeeds.
 
 Expected success:
 
 ```text
 NOWNodes API key: OK
 Solana getSlot: OK
+Bitcoin getbestblockhash: OK
+Cardano Blockfrost latest block: OK
 Result: PASS
 ```
 
@@ -104,6 +110,30 @@ The Ethereum examples cover:
 - contract code checks;
 - storage slot reading.
 
+### Bitcoin
+
+The Bitcoin examples cover:
+
+- latest block and block lookup;
+- decoded transaction lookup;
+- address balances, UTXOs, and transaction history;
+- mempool information;
+- fee estimates;
+- raw transaction decode and guarded broadcast;
+- OP_RETURN reading.
+
+### Cardano
+
+The Cardano examples use NOWNodes' Blockfrost-compatible REST endpoint and cover:
+
+- network information;
+- latest block and block lookup;
+- latest epoch and epoch protocol parameters;
+- address balances, UTXOs, and transaction history;
+- transaction summaries, UTXO breakdowns, and metadata;
+- native asset details and holder addresses;
+- stake pool list and pool details.
+
 ### Coreum
 
 The Coreum examples focus on reusable write-flow patterns:
@@ -123,7 +153,7 @@ The starter kit is ready when:
 - `npm install` works.
 - `npm run dev` starts the backend and UI.
 - `.env.example` contains no real secrets.
-- `npm run verify:nownodes` checks Solana through NOWNodes.
+- `npm run verify:nownodes` checks Solana, Bitcoin, and Cardano through NOWNodes.
 - The Solana dashboard shows live data with a valid API key.
 - CLI examples are documented in README.
 - Private keys, mnemonics, and API keys are not stored in backend code.
@@ -135,5 +165,8 @@ The starter kit is ready when:
 - Solana Docs: <https://solana.com/docs>
 - Ethereum JSON-RPC Docs: <https://ethereum.org/developers/docs/apis/json-rpc/>
 - Ethereum Execution APIs: <https://ethereum.github.io/execution-apis/>
+- NOWNodes Bitcoin Docs: <https://docs.nownodes.io/btc/>
+- NOWNodes Cardano Docs: <https://docs.nownodes.io/ada/>
+- Cardano Developer Portal NOWNodes entry: <https://developers.cardano.org/tools/nownodes/>
 - Coreum Foundation: <https://github.com/CoreumFoundation>
 - coreum-js: <https://www.npmjs.com/package/coreum-js>

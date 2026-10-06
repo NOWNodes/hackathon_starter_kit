@@ -42,8 +42,10 @@ export const config = {
   ),
   btcNetwork: process.env.BTC_NETWORK || 'mainnet',
   btcRpcUrl: expandEnv(process.env.BTC_RPC_URL || 'https://btc.nownodes.io/'),
+  adaNetwork: process.env.ADA_NETWORK || 'mainnet',
+  adaBlockfrostUrl: expandEnv(process.env.ADA_BLOCKFROST_URL || 'https://ada-blockfrost.nownodes.io'),
 };
 
 export function hasNownodesConfig() {
-  return Boolean(config.nownodesApiKey && config.solanaRpcUrl && config.btcRpcUrl);
+  return Boolean(config.nownodesApiKey && config.solanaRpcUrl && config.btcRpcUrl && config.adaBlockfrostUrl);
 }

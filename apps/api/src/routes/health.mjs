@@ -8,6 +8,7 @@ export function healthRoute() {
     networks: {
       solana: config.solNetwork,
       btc: config.btcNetwork,
+      cardano: config.adaNetwork,
     },
   };
 }

@@ -15,6 +15,12 @@ export function chainsRoute() {
         network: config.btcNetwork,
         rpc: 'NOWNodes',
       },
+      {
+        id: 'cardano',
+        name: 'Cardano',
+        network: config.adaNetwork,
+        rpc: 'NOWNodes Blockfrost-compatible REST',
+      },
     ],
   };
 }

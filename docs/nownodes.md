@@ -9,6 +9,8 @@ SOLANA_RPC_URL=https://sol.nownodes.io/${NOWNODES_API_KEY}
 BTC_NETWORK=mainnet
 BTC_RPC_URL=https://btc.nownodes.io/
 BTC_BLOCKBOOK_URL=https://btcbook.nownodes.io
+ADA_NETWORK=mainnet
+ADA_BLOCKFROST_URL=https://ada-blockfrost.nownodes.io
 ETH_NETWORK=mainnet
 ETH_RPC_URL=https://eth.nownodes.io/
 COREUM_NETWORK=testnet
@@ -32,6 +34,14 @@ The local RPC playground intentionally does not maintain a method allowlist. Ava
 Ethereum examples use `ETH_RPC_URL` and send `NOWNODES_API_KEY` in the request headers. The default endpoint is Ethereum mainnet.
 
 All Ethereum examples are read-only. They do not hold private keys and do not broadcast signed transactions.
+
+## Cardano
+
+Cardano examples use `ADA_BLOCKFROST_URL` and send `NOWNODES_API_KEY` in the request headers. The default endpoint is the NOWNodes Blockfrost-compatible Cardano mainnet REST endpoint.
+
+The included examples are read-only: network information, latest block, block lookup, latest epoch, epoch parameters, address details, address UTXOs, address transaction history, transaction summary, transaction UTXOs, transaction metadata, asset details, asset holders, pool list, and pool details.
+
+Some examples can auto-derive a recent transaction, address, asset, or pool from the latest chain state when an argument is omitted. If the latest block does not contain the needed primitive, pass an explicit value.
 
 ## Bitcoin
 

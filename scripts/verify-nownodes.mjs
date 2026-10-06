@@ -45,6 +45,28 @@ async function main() {
     });
   }
 
+  try {
+    const response = await fetch(new URL('/blocks/latest', config.adaBlockfrostUrl), {
+      method: 'GET',
+      headers: {
+        'api-key': config.nownodesApiKey,
+        accept: 'application/json',
+      },
+    });
+    const latestBlock = await response.json();
+    checks.push({
+      label: 'Cardano Blockfrost latest block',
+      ok: response.ok && typeof latestBlock?.hash === 'string' && Number.isFinite(latestBlock?.height),
+      detail: latestBlock?.hash ?? JSON.stringify(latestBlock),
+    });
+  } catch (error) {
+    checks.push({
+      label: 'Cardano Blockfrost latest block',
+      ok: false,
+      detail: error.message,
+    });
+  }
+
   print(checks);
   process.exit(checks.every((check) => check.ok) ? 0 : 1);
 }

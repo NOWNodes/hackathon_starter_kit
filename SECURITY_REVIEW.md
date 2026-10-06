@@ -22,6 +22,7 @@ This review highlights areas that may confuse users or require hardening before 
 | Coreum simulation | Simulation can fail if the fee payer address does not exist on-chain. | README now explains expected placeholder-address simulation errors. |
 | Ethereum code checker | Some addresses that look like EOAs can have delegated code under newer account-abstraction patterns. | Treat `eth_getCode` as "has code / no code", not as a perfect account classification model. |
 | Bitcoin transaction lookup | `getrawtransaction` without a block hash can fail on nodes that do not expose unrestricted transaction indexing. | README recommends passing `--block=<BLOCK_HASH>` when looking up known historical transactions. |
+| Cardano auto-derived examples | Some Cardano examples derive a recent transaction, address, asset, or pool from latest chain state. The latest block may not contain a native asset or metadata. | Pass explicit values when a derived sample is not available. README notes this behavior. |
 | `npm exec -- tsx` syntax | `--` is required before scripts that take `--flag=value` args so npm does not consume the flags. | README uses `npm exec -- tsx` where script flags are expected. |
 
 ## Recommended Production Hardening
@@ -41,6 +42,7 @@ This review highlights areas that may confuse users or require hardening before 
 
 - Solana verifier and read examples were tested against NOWNodes with a local API key.
 - Ethereum read examples were tested against NOWNodes Ethereum mainnet.
+- Cardano examples were added against NOWNodes' Blockfrost-compatible REST interface. Run them with `NOWNODES_API_KEY` configured for live verification.
 - Coreum write-flow examples were tested in dry-run mode and simulation mode against Coreum testnet.
 - Coreum simulation with placeholder addresses correctly returns an on-chain "address does not exist" error instead of broadcasting anything.
 - `npm audit --omit=dev` currently reports 20 transitive vulnerabilities from the Coreum dependency tree, including 1 critical advisory in `protobufjs`.

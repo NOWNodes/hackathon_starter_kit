@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "description": "Starter kit for building Solana, Bitcoin, Ethereum, and Coreum projects on top of NOWNodes RPC.",
+  "description": "Starter kit for building Solana, Bitcoin, Cardano, Ethereum, and Coreum projects on top of NOWNodes RPC.",
   "scripts": {
     "dev": "node apps/api/src/server.mjs",
     "start": "node apps/api/src/server.mjs",
